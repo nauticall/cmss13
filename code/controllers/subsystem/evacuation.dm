@@ -60,6 +60,12 @@ SUBSYSTEM_DEF(evacuation)
 		activate_escape()
 		activate_lifeboats()
 		process_evacuation()
+
+		for(var/obj/docking_port/stationary/lifeboat_dock/LD in GLOB.lifeboat_almayer_docks) //evacuation confirmed, time to open lifeboats
+			var/obj/docking_port/mobile/lifeboat/L = LD.get_docked()
+			if(L && L.available)
+				LD.open_dock()
+
 		return TRUE
 
 /datum/controller/subsystem/evacuation/proc/cancel_evacuation() //Cancels the evac procedure. Useful if admins do not want the marines leaving.
@@ -82,11 +88,6 @@ SUBSYSTEM_DEF(evacuation)
 		spawn() //One of the few times spawn() is appropriate. No need for a new proc.
 			ai_announcement("WARNING: Evacuation order confirmed. Launching escape pods.", 'sound/AI/evacuation_confirmed.ogg')
 
-			for(var/obj/docking_port/stationary/lifeboat_dock/LD in GLOB.lifeboat_almayer_docks) //evacuation confirmed, time to open lifeboats
-				var/obj/docking_port/mobile/lifeboat/L = LD.get_docked()
-				if(L && L.available)
-					LD.open_dock()
-
 			enable_self_destruct()
 
 			for(var/obj/docking_port/stationary/escape_pod_dock/ED in GLOB.escape_almayer_docks)
@@ -97,8 +98,8 @@ SUBSYSTEM_DEF(evacuation)
 
 			var/obj/docking_port/mobile/lifeboat/L1 = SSshuttle.getShuttle("lifeboat1")
 			var/obj/docking_port/mobile/lifeboat/L2 = SSshuttle.getShuttle("lifeboat2")
-			while(L1.available || L2.available)
-				sleep(5 SECONDS) //Sleep 5 more seconds to make sure everyone had a chance to leave. And wait for lifeboats
+			L1.try_launch()
+			L2.try_launch()
 
 			lifesigns += L1.survivors + L2.survivors
 

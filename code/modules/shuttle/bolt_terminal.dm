@@ -26,7 +26,6 @@
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-
 /obj/structure/machinery/bolt_control/target
 	name = "Manual Launch - Target"
 	icon = 'icons/obj/structures/machinery/bolt_target.dmi'
