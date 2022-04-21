@@ -109,7 +109,7 @@ SUBSYSTEM_DEF(evacuation)
 			if(L1.status != LIFEBOAT_LOCKED && L2.status != LIFEBOAT_LOCKED)
 				trigger_self_destruct()
 			else
-				ai_announcement("ATTENTION: Not all lifeboat escaped, auto self destruct denied.", 'sound/AI/evacuation_complete.ogg')
+				ai_announcement("ATTENTION: Not all lifeboats have escaped, auto self destruct denied.", 'sound/AI/evacuation_complete.ogg')
 
 		return TRUE
 
