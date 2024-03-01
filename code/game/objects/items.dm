@@ -38,14 +38,14 @@
 
 	//SOUND VARS
 	///Sound to be played when item is picked up
-	var/pickup_sound
+	var/pickup_sound = "gen_pickup"
 	///Volume of pickup sound
 	var/pickupvol = 15
 	///Whether the pickup sound will vary in pitch/frequency
 	var/pickup_vary = TRUE
 
 	///Sound to be played when item is dropped
-	var/drop_sound
+	var/drop_sound = "gen_drop"
 	///Volume of drop sound
 	var/dropvol = 15
 	///Whether the drop sound will vary in pitch/frequency

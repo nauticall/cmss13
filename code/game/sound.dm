@@ -174,6 +174,10 @@
 	if(istext(S))
 		switch(S)
 			// General effects
+			if("gen_pickup")
+				S = pick('sound/items/pickup/generic1.ogg', 'sound/items/pickup/generic2.ogg', 'sound/items/pickup/generic3.ogg')
+			if("gen_drop")
+				S = pick('sound/items/drop/generic1.ogg', 'sound/items/drop/generic2.ogg')
 			if("shatter")
 				S = pick('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg')
 			if("windowshatter") //meaty window shattering sound

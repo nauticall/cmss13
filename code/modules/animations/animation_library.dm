@@ -258,3 +258,31 @@ Can look good elsewhere as well.*/
 	animate(src, 3, transform = reset_matrix, pixel_y = 0, alpha = pre_rappel_alpha, flags = ANIMATION_PARALLEL)
 	sleep(3)
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, INTERACTION_TRAIT)
+
+/mob/proc/animate_throw()
+	var/ipx = pixel_x
+	var/ipy = pixel_y
+	var/mpx = 0
+	var/mpy = 0
+
+	if(dir & NORTH)
+		mpy += 3
+	else if(dir & SOUTH)
+		mpy -= 3
+	if(dir & EAST)
+		mpx += 3
+	else if(dir & WEST)
+		mpx -= 3
+
+	var/new_x = mpx + ipx
+	var/new_y = mpy + ipy
+
+	animate(src, pixel_x = new_x, pixel_y = new_y, time = 0.6, easing = EASE_OUT)
+
+	var/matrix/M = matrix(transform)
+	animate(transform = turn(transform, (mpx - mpy) * 4), time = 0.6, easing = EASE_OUT)
+	animate(pixel_x = ipx, pixel_y = ipy, time = 0.6, easing = EASE_IN)
+	animate(transform = M, time = 0.6, easing = EASE_IN)
+
+	if(is_floating)
+		addtimer(CALLBACK(src, PROC_REF(start_floating)), 2.4)

@@ -368,7 +368,31 @@
 	else //real item in hand, not a grab
 		thrown_thing = I
 
+	if(a_intent == INTENT_HELP && Adjacent(target) && isitem(thrown_thing))
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(H.throw_mode == THROW_MODE_NORMAL && H.a_intent == INTENT_HELP)
+				H.receive_from(src, target)
+				if(!QDELETED(I)) // if on_give deletes the item, we don't want runtimes below
+					H.put_in_hands(I)
+					visible_message("<b>[src]</b> hands \the [H] \a [I].", SPAN_NOTICE("You give \the [target] \a [I]."))
+			else
+				to_chat(src, SPAN_NOTICE("You offer \the [I] to \the [target]."))
+				give(H)
+			return TRUE
 
+		var/turf/T = get_turf(target)
+		if(T.density) //Don't put the item in dense turfs
+			return TRUE //Takes off throw mode
+		if(is_blocked_turf(T))
+			for(var/obj/structure/O in T)
+				if(!O.density) //We don't care about you.
+					continue
+				if(!(O.BlockedPassDirs(src))) //Items have CANPASS for tables/railings, allows placement. Also checks windows.
+					continue
+				if(istype(O, /obj/structure/closet/crate)) //Placing on/in crates is fine.
+					continue
+				return TRUE //Something is stopping us. Takes off throw mode.
 
 	//actually throw it!
 	if(thrown_thing)
@@ -376,6 +400,8 @@
 		if(!(thrown_thing.try_to_throw(src)))
 			return
 		visible_message(SPAN_WARNING("[src] has thrown [thrown_thing]."), null, null, 5)
+		playsound(src, 'sound/effects/throw.ogg', 15, TRUE)
+		src.animate_throw()
 
 		if(!lastarea)
 			lastarea = get_area(src.loc)
