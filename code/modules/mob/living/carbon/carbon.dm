@@ -381,19 +381,6 @@
 				give(H)
 			return TRUE
 
-		var/turf/T = get_turf(target)
-		if(T.density) //Don't put the item in dense turfs
-			return TRUE //Takes off throw mode
-		if(is_blocked_turf(T))
-			for(var/obj/structure/O in T)
-				if(!O.density) //We don't care about you.
-					continue
-				if(!(O.BlockedPassDirs(src))) //Items have CANPASS for tables/railings, allows placement. Also checks windows.
-					continue
-				if(istype(O, /obj/structure/closet/crate)) //Placing on/in crates is fine.
-					continue
-				return TRUE //Something is stopping us. Takes off throw mode.
-
 	//actually throw it!
 	if(thrown_thing)
 

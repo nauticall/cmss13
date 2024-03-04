@@ -15,6 +15,8 @@
 	var/splashable = TRUE
 	flags_atom = FPRINT|OPENCONTAINER
 	transparent = TRUE
+	pickup_sound = 'sound/items/pickup/drinkglass.ogg'
+	drop_sound = 'sound/items/drop/drinkglass.ogg'
 
 	var/list/can_be_placed_into = list(
 		/obj/structure/machinery/chem_master/,

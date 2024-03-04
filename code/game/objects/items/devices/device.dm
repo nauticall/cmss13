@@ -4,6 +4,8 @@
 /obj/item/device
 	icon = 'icons/obj/items/devices.dmi'
 	var/serial_number
+	pickup_sound = 'sounds/items/pickup/device.ogg'
+	drop_sound = 'sounds/items/drop/device.ogg'
 
 /obj/item/device/Initialize(mapload, ...)
 	. = ..()

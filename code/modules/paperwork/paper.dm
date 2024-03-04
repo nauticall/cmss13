@@ -21,6 +21,8 @@
 	attack_verb = list("bapped")
 	ground_offset_x = 9
 	ground_offset_y = 8
+	pickup_sound = 'sound/items/pickup/paper.ogg'
+	drop_sound = 'sound/items/drop/paper.ogg'
 
 	var/info //What's actually written on the paper.
 	var/info_links //A different version of the paper which includes html links at fields and EOF
