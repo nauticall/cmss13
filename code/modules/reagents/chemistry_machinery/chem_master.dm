@@ -297,6 +297,9 @@
 				creating_pill.icon_state = "pill[pillsprite]"
 
 				reagents.trans_to(creating_pill, amount_per_pill)
+				
+				creating_pill.update_icon()
+
 				if(loaded_pill_bottle && length(loaded_pill_bottle.contents) < loaded_pill_bottle.max_storage_space)
 					loaded_pill_bottle.handle_item_insertion(creating_pill, TRUE)
 

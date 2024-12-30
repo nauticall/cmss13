@@ -45,6 +45,7 @@
 	. = ..()
 	if(!icon_state)
 		icon_state = GLOB.pill_icon_mappings[pill_icon_class]
+	color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/item/reagent_container/pill/get_examine_text(mob/user)
 	. = ..()
